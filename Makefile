@@ -1,8 +1,12 @@
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -ggdb #-fsanitize=thread 
+CFLAGS = -Wall -Wextra -Werror -g -ggdb#-fsanitize=thread 
 
-SRCS = main.c utils.c ft_split.c
+SRCS =	main.c\
+		utils.c\
+		ft_split.c\
+		initialize.c\
+		free.c
 
 all: $(NAME)
 
