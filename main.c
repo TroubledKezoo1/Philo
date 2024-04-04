@@ -24,6 +24,8 @@ int	main(int ac, char **av)
 			return (printf("Wrong Argument"),double_free(av),0);
         if (!ft_initialize(&table, av))
 			return (printf("Initialize Error"),double_free(av),0);
+		if (!ft_start(&table))
+			return(printf("Error"),double_free(av),0);
 		double_free(av);
 	}
 	else if (ac == 5 || ac == 6)

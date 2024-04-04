@@ -6,7 +6,8 @@ SRCS =	main.c\
 		utils.c\
 		ft_split.c\
 		initialize.c\
-		free.c
+		free.c\
+		time.c
 
 all: $(NAME)
 

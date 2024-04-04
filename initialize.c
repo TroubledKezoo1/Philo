@@ -57,8 +57,42 @@ int	create_philo(t_table *table)
 
 int	ft_initialize(t_table *table, char **av)
 {
+	int		i;
 	table->number_of_philo = ft_atoi(av[0]);
+	table->time_to_die = ft_atoi(av[1]);
+	table->time_to_eat = ft_atoi(av[2]);
+	table->time_to_sleap = ft_atoi(av[3]);
+	table->number_of_must_eat = -1;
+	if (av[4])
+		table->number_of_must_eat = ft_atoi(av[4]);
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->number_of_philo);
+	if (table->forks == NULL)
+		return (0);
 	if (!create_philo(table))
 		return (0);
+	table->stop = 0;
+	table->time = current_time();
 	return (1);
+}
+
+int ft_start(t_table *table)
+{
+	int i;
+
+	if (table->number_of_philo == 1)
+	{
+		time_usleep(table->time_to_die);
+		i = time_from_start(table);
+		printf("\033[0;36m%d \033[0;32m%d %s\033[0m\n", 0, 1, TAKEN_FORK);
+		printf("\033[0;36m%d \033[0;32m%d %s\033[0m\n", i, 1, DIE);
+	}
+	if (table != NULL)
+	{
+		if (table->number_of_philo > 1)
+		{
+			start_threads(table);
+			end_threads(table);
+		}
+	}
+	
 }
