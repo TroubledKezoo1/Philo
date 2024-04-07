@@ -35,6 +35,9 @@ int	main(int ac, char **av)
 			return (printf("Wrong Argument"));
 		if (!ft_initialize(&table, av))
 			return (printf("Initialize Error"));
+		if (!ft_start(&table))
+			return(printf("Error"),double_free(av),0);
+		
 	}
 	else
 		printf("Wrong Argument");
