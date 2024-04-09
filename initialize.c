@@ -93,7 +93,6 @@ int	ft_initialize(t_table *table, char **av)
 	if (!init_mutexes(table))
 		return (0);
 	table->stop = 0;
-	table->time = current_time();
 	return (1);
 }
 int ft_start(t_table *table)

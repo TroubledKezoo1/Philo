@@ -16,6 +16,7 @@ int start_thread(t_table *table)
 		iter = iter->right_philo;
 		i++;
 	}
+	table->time = current_time();
 	i = 1;
 	iter = table->first_philo;
 	while (i <= table->number_of_philo)
@@ -38,8 +39,8 @@ void *thread_routine(void *arg)
 		philo_eat(philo);
 		if (philo->eat_count == table->number_of_must_eat)
 			break;
-		
-	}   
+	}
+
     return (NULL);
 }
 
