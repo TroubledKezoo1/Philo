@@ -27,7 +27,8 @@ typedef struct s_philo
 {
 	pthread_t		thread_id;
 	int				id;
-	t_table			*table;
+	int				eat_count;
+	struct s_table	*table;
 	struct s_philo	*right_philo;
 	struct s_philo	*left_philo;
 	pthread_mutex_t *right_fork;
@@ -44,6 +45,7 @@ typedef struct s_table
 	int				stop;
 	uint64_t		time;
 	t_philo			*first_philo;
+	pthread_mutex_t	write;
 }					t_table;
 
 int					ft_check(char **av);
@@ -54,10 +56,16 @@ int					ft_initialize(t_table *table, char **av);
 void				double_free(char **av);
 int					create_philo(t_table *table);
 int					philo_add(t_philo **root, int id,t_table *table);
-void				philo_free(t_philo**root);
 uint64_t			current_time(void);
 uint64_t			time_from_start(t_table *table);
 void				time_usleep(uint16_t micsec);
 int 				ft_start(t_table *table);
-
+void				philo_free(t_philo **root);
+void				table_free(t_table *table);
+int					start_thread(t_table *table);
+int					init_mutexes(t_table *table);
+void				*thread_routine(void *arg);
+int					print(t_philo *philo,char *str);
+int					mutex_free(pthread_mutex_t *mutex);
+void				philo_eat(t_philo *philo);
 #endif

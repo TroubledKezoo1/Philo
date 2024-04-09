@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 int	ft_atoi(const char *str)
 {
@@ -57,11 +58,10 @@ int	ft_check(char **av)
 	j = 0;
 	while (av[j])
 	{
+		i = 0;
 		while (av[j][i])
-		{
 			if (!ft_isdigit(av[j][i++]))
 				return (0);
-		}
 		j++;
 	}
 	if (j == 4 || j == 5)

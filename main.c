@@ -25,7 +25,7 @@ int	main(int ac, char **av)
         if (!ft_initialize(&table, av))
 			return (printf("Initialize Error"),double_free(av),0);
 		if (!ft_start(&table))
-			return(printf("Error"),double_free(av),0);
+			return(printf("Error"),table_free(&table),double_free(av),0);
 		double_free(av);
 	}
 	else if (ac == 5 || ac == 6)
@@ -36,8 +36,7 @@ int	main(int ac, char **av)
 		if (!ft_initialize(&table, av))
 			return (printf("Initialize Error"));
 		if (!ft_start(&table))
-			return(printf("Error"),double_free(av),0);
-		
+			return(printf("Error"),table_free(&table),0);
 	}
 	else
 		printf("Wrong Argument");

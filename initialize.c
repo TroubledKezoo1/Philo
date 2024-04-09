@@ -14,16 +14,18 @@
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 
 int	philo_add(t_philo **root, int id, t_table *table)
 {
 	t_philo	*newphilo;
-	pthread_t thread_id;
 	
 	newphilo = (t_philo *)malloc(sizeof(t_philo));
 	if (!newphilo)
 		return (printf("Philo Init Error"), philo_free(root), 0);
 	newphilo->id = id;
+	newphilo->eat_count = 0;
 	newphilo->table = table;
 	newphilo->right_philo = newphilo;
 	newphilo->left_philo = newphilo;
@@ -59,9 +61,26 @@ int	create_philo(t_table *table)
 	return (1);
 }
 
+int init_mutexes(t_table *table)
+{
+	t_philo *iter;
+	int		i;
+
+	iter = table->first_philo;
+	i = 1;
+	while (i <= table->number_of_philo)
+	{
+		if (pthread_mutex_init(iter->right_fork,NULL) != 0)
+			return (0);
+		iter = iter->right_philo;
+		i++;
+	}
+	pthread_mutex_init(&table->write,NULL);
+	return(1);
+}
+
 int	ft_initialize(t_table *table, char **av)
 {
-	int		i;
 	table->number_of_philo = ft_atoi(av[0]);
 	table->time_to_die = ft_atoi(av[1]);
 	table->time_to_eat = ft_atoi(av[2]);
@@ -71,11 +90,12 @@ int	ft_initialize(t_table *table, char **av)
 		table->number_of_must_eat = ft_atoi(av[4]);
 	if (!create_philo(table))
 		return (0);
+	if (!init_mutexes(table))
+		return (0);
 	table->stop = 0;
 	table->time = current_time();
 	return (1);
 }
-
 int ft_start(t_table *table)
 {
 	if (table->number_of_philo == 1)
@@ -83,9 +103,17 @@ int ft_start(t_table *table)
 		int i;
 		time_usleep(table->time_to_die);
 		i = time_from_start(table);
+		pthread_mutex_lock(table->first_philo->right_fork);
 		printf("\033[0;36m%d \033[0;32m%d %s\033[0m\n", 0, 1, TAKEN_FORK);
 		printf("\033[0;36m%d \033[0;32m%d %s\033[0m\n", i, 1, DIE);
-		return(0);
+		pthread_mutex_unlock(table->first_philo->right_fork);
+		pthread_mutex_destroy(table->first_philo->right_fork);
+		return(1);
+	}
+	else if (table->number_of_philo > 1)
+	{
+		if(!start_thread(table))
+			return(0);
 	}
 	return(1);	
 }

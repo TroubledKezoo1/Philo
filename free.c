@@ -13,26 +13,36 @@
 #include "philo.h"
 #include <stdlib.h>
 
-void	philo_free(t_philo **root)
+void    table_free(t_table *table)
 {
-	t_philo	*current;
-	t_philo	*temp;
-
-	if (*root == NULL)
-		return ;
-	current = *root;
-	temp = NULL;
-	while (current != NULL)
-	{
-		temp = current;
-		current = current->right_philo;
-		free(temp);
-		if (current == *root)
-			break ;
-	}
-	*root = NULL;
+	philo_free(&table->first_philo);
 }
-void	double_free(char **av)
+
+void    philo_free(t_philo **root)
+{
+    if (*root == NULL)
+        return;
+
+    t_philo *current = *root;
+    t_philo *next = NULL;
+
+    while (current != NULL)
+    {
+        next = current->right_philo;
+
+        // Freeing right and left forks
+        free(current->right_fork);
+        free(current->left_fork);
+
+        free(current);
+
+        current = (next == *root) ? NULL : next;
+    }
+
+    *root = NULL;
+}
+
+void    double_free(char **av)
 {
 	if (av != NULL)
 	{
@@ -46,4 +56,17 @@ void	double_free(char **av)
 		}
 		free(av);
 	}
+}
+
+int     mutex_free(pthread_mutex_t *mutex)
+{
+    if (mutex != NULL )
+    {
+        if ((pthread_mutex_unlock(mutex) != 0) && (pthread_mutex_destroy(mutex) != 0))
+        {
+            return(free(mutex),0);
+        }
+        return(1);
+    }
+    return(0);
 }
