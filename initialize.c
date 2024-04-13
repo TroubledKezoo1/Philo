@@ -76,6 +76,7 @@ int init_mutexes(t_table *table)
 		i++;
 	}
 	pthread_mutex_init(&table->write,NULL);
+	pthread_mutex_init(&table->stop_flag,NULL);
 	return(1);
 }
 
@@ -93,6 +94,7 @@ int	ft_initialize(t_table *table, char **av)
 	if (!init_mutexes(table))
 		return (0);
 	table->stop = 0;
+	table->time = current_time();
 	return (1);
 }
 int ft_start(t_table *table)
@@ -110,9 +112,7 @@ int ft_start(t_table *table)
 		return(1);
 	}
 	else if (table->number_of_philo > 1)
-	{
 		if(!start_thread(table))
 			return(0);
-	}
 	return(1);	
 }

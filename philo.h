@@ -46,6 +46,7 @@ typedef struct s_table
 	uint64_t		time;
 	t_philo			*first_philo;
 	pthread_mutex_t	write;
+	pthread_mutex_t	stop_flag;
 }					t_table;
 
 int					ft_check(char **av);
@@ -68,4 +69,6 @@ void				*thread_routine(void *arg);
 int					print(t_philo *philo,char *str);
 int					mutex_free(pthread_mutex_t *mutex);
 void				philo_eat(t_philo *philo);
+void				philo_sleep(t_philo *philo);
+void				philo_think(t_philo *philo);
 #endif

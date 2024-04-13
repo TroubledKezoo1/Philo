@@ -12,6 +12,7 @@
 
 #include "philo.h"
 #include <stdio.h>
+#include <unistd.h>
 
 int	main(int ac, char **av)
 {
@@ -28,9 +29,8 @@ int	main(int ac, char **av)
 			return(printf("Error"),table_free(&table),double_free(av),0);
 		double_free(av);
 	}
-	else if (ac == 5 || ac == 6)
+	else if ((ac == 5 || ac == 6 ) && (av ++))
 	{
-		av++;
 		if (!ft_check(av))
 			return (printf("Wrong Argument"));
 		if (!ft_initialize(&table, av))
