@@ -8,6 +8,7 @@ int start_thread(t_table *table)
 	int i;
 
 	i = 1;
+	table->time = current_time();
 	iter = table->first_philo;
 	while (i <= table->number_of_philo)
 	{

@@ -94,19 +94,19 @@ int	ft_initialize(t_table *table, char **av)
 	if (!init_mutexes(table))
 		return (0);
 	table->stop = 0;
-	table->time = current_time();
+	table->time = 0;
 	return (1);
 }
 int ft_start(t_table *table)
 {
 	if (table->number_of_philo == 1)
 	{
-		int i;
-		time_usleep(table->time_to_die);
-		i = time_from_start(table);
+		table->time = current_time();
 		pthread_mutex_lock(table->first_philo->right_fork);
-		printf("\033[0;36m%d \033[0;32m%d %s\033[0m\n", 0, 1, TAKEN_FORK);
-		printf("\033[0;36m%d \033[0;32m%d %s\033[0m\n", i, 1, DIE);
+		print(table.first_philo, TAKEN_FORK);
+		time_from_start(table);
+		time_usleep(table->time_to_die);
+		print(table.first_philo, DIE);
 		pthread_mutex_unlock(table->first_philo->right_fork);
 		pthread_mutex_destroy(table->first_philo->right_fork);
 		return(1);
