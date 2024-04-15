@@ -9,3 +9,14 @@ int	print(t_philo *philo,char* str)
 		return(mutex_free(&philo->table->write));
     return (1);
 }
+
+void wait_philo(t_philo *philo)
+{
+		pthread_mutex_lock(&philo->table->stop_flag);
+	while (1)
+	{
+		if(philo->table->stop == 0)
+			break;
+	}
+		pthread_mutex_unlock(&philo->table->stop_flag);
+}

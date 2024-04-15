@@ -8,15 +8,17 @@ int start_thread(t_table *table)
 	int i;
 
 	i = 1;
-	table->time = current_time();
 	iter = table->first_philo;
+	table->time = current_time();
 	while (i <= table->number_of_philo)
 	{
 		if (pthread_create(&iter->thread_id,NULL,&thread_routine,iter) != 0)
 			return (0);
+		table->stop = 1;
 		iter = iter->right_philo;
 		i++;
 	}
+	table->stop = 0;
 	i = 1;
 	iter = table->first_philo;
 	while (i <= table->number_of_philo)
@@ -32,6 +34,7 @@ void *thread_routine(void *arg)
 {
     t_philo *philo = (t_philo *)arg;
 	t_table *table = philo->table;
+	wait_philo(philo);
     if (philo->id % 2 == 0)
 		time_usleep(1000);
     while (1)

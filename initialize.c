@@ -103,10 +103,10 @@ int ft_start(t_table *table)
 	{
 		table->time = current_time();
 		pthread_mutex_lock(table->first_philo->right_fork);
-		print(table.first_philo, TAKEN_FORK);
+		print(table->first_philo, TAKEN_FORK);
 		time_from_start(table);
 		time_usleep(table->time_to_die);
-		print(table.first_philo, DIE);
+		print(table->first_philo, DIE);
 		pthread_mutex_unlock(table->first_philo->right_fork);
 		pthread_mutex_destroy(table->first_philo->right_fork);
 		return(1);
