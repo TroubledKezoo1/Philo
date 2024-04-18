@@ -28,6 +28,7 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	int				id;
 	int				eat_count;
+	uint64_t		last_eat;
 	struct s_table	*table;
 	struct s_philo	*right_philo;
 	struct s_philo	*left_philo;
@@ -38,7 +39,7 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int				number_of_philo;
-	int				time_to_die;
+	uint64_t		time_to_die;
 	int				time_to_eat;
 	int				time_to_sleap;
 	int				number_of_must_eat;
@@ -46,7 +47,10 @@ typedef struct s_table
 	uint64_t		time;
 	t_philo			*first_philo;
 	pthread_mutex_t	write;
+	pthread_mutex_t	count_eat;
+	pthread_mutex_t	eat_last;
 	pthread_mutex_t	stop_flag;
+	pthread_mutex_t	isdie;
 }					t_table;
 
 int					ft_check(char **av);
@@ -72,4 +76,7 @@ void				philo_eat(t_philo *philo);
 void				philo_sleep(t_philo *philo);
 void				philo_think(t_philo *philo);
 void				wait_philo(t_philo *philo);
+void				die_check(t_table *table);
+int					check_die(t_table *table);
+int					must_eating_check(t_table *table);
 #endif

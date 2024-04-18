@@ -9,18 +9,16 @@ int start_thread(t_table *table)
 
 	i = 1;
 	iter = table->first_philo;
-	table->time = current_time();
 	while (i <= table->number_of_philo)
 	{
 		if (pthread_create(&iter->thread_id,NULL,&thread_routine,iter) != 0)
 			return (0);
-		table->stop = 1;
 		iter = iter->right_philo;
 		i++;
 	}
-	table->stop = 0;
 	i = 1;
 	iter = table->first_philo;
+	die_check(table);
 	while (i <= table->number_of_philo)
 	{
 		if (pthread_join(iter->thread_id,NULL) != 0)
@@ -30,38 +28,47 @@ int start_thread(t_table *table)
 	}
 	return (1);
 }
+
 void *thread_routine(void *arg)
 {
-    t_philo *philo = (t_philo *)arg;
-	t_table *table = philo->table;
-	wait_philo(philo);
-    if (philo->id % 2 == 0)
-		time_usleep(1000);
-    while (1)
-    {
+	t_philo	*philo;
+	int		stop;
+
+	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		time_usleep(10);
+	while (1)
+	{
+		pthread_mutex_lock(&philo->table->stop_flag);
+		stop = philo->table->stop;
+		pthread_mutex_unlock(&philo->table->stop_flag);
+		if (stop == 1)
+			break ;
 		philo_eat(philo);
-		philo_think(philo);
 		philo_sleep(philo);
-		if (table->number_of_must_eat == philo->eat_count)
-			break;
+		philo_think(philo);
 	}
-    return (NULL);
+	return(NULL);
 }
 
-void philo_eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
 	if (philo->eat_count == philo->table->number_of_must_eat)
-			return;
+		return ;
 	pthread_mutex_lock(philo->right_fork);
-	print(philo,TAKEN_FORK);
+	print(philo, TAKEN_FORK);
 	pthread_mutex_lock(philo->left_fork);
-	print(philo,TAKEN_FORK);
-	print(philo,IS_EATING);
+	print(philo, TAKEN_FORK);
+	print(philo, IS_EATING);
+	pthread_mutex_lock(&philo->table->count_eat);
 	philo->eat_count++;
+	pthread_mutex_unlock(&philo->table->count_eat);
 	time_usleep(philo->table->time_to_eat);
+	pthread_mutex_lock(&philo->table->eat_last);
+	philo->last_eat = current_time();
+	pthread_mutex_unlock(&philo->table->eat_last);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-
 }
 void	philo_sleep(t_philo *philo)
 {

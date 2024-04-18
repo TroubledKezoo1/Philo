@@ -68,7 +68,7 @@ int	ft_check(char **av)
 	{
 		while (j--)
 		{
-			if (ft_atoi(av[j]) <= 0 || ft_atoi(av[j]) > 2147483647)
+			if (ft_atoi(av[j]) < 0 || ft_atoi(av[j]) > 2147483647)
 				return (0);
 		}
 	}

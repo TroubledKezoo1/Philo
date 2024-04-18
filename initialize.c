@@ -26,6 +26,7 @@ int	philo_add(t_philo **root, int id, t_table *table)
 		return (printf("Philo Init Error"), philo_free(root), 0);
 	newphilo->id = id;
 	newphilo->eat_count = 0;
+	newphilo->last_eat = current_time();
 	newphilo->table = table;
 	newphilo->right_philo = newphilo;
 	newphilo->left_philo = newphilo;
@@ -76,13 +77,18 @@ int init_mutexes(t_table *table)
 		i++;
 	}
 	pthread_mutex_init(&table->write,NULL);
+	pthread_mutex_init(&table->count_eat,NULL);
+	pthread_mutex_init(&table->eat_last,NULL);
 	pthread_mutex_init(&table->stop_flag,NULL);
+	pthread_mutex_init(&table->isdie,NULL);
 	return(1);
 }
 
 int	ft_initialize(t_table *table, char **av)
 {
 	table->number_of_philo = ft_atoi(av[0]);
+	if (table->number_of_philo == 0)
+		return (0);
 	table->time_to_die = ft_atoi(av[1]);
 	table->time_to_eat = ft_atoi(av[2]);
 	table->time_to_sleap = ft_atoi(av[3]);
@@ -94,7 +100,7 @@ int	ft_initialize(t_table *table, char **av)
 	if (!init_mutexes(table))
 		return (0);
 	table->stop = 0;
-	table->time = 0;
+	table->time = current_time();
 	return (1);
 }
 int ft_start(t_table *table)
@@ -102,13 +108,10 @@ int ft_start(t_table *table)
 	if (table->number_of_philo == 1)
 	{
 		table->time = current_time();
-		pthread_mutex_lock(table->first_philo->right_fork);
 		print(table->first_philo, TAKEN_FORK);
 		time_from_start(table);
 		time_usleep(table->time_to_die);
 		print(table->first_philo, DIE);
-		pthread_mutex_unlock(table->first_philo->right_fork);
-		pthread_mutex_destroy(table->first_philo->right_fork);
 		return(1);
 	}
 	else if (table->number_of_philo > 1)
