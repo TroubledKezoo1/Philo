@@ -73,6 +73,8 @@ int init_mutexes(t_table *table)
 	{
 		if (pthread_mutex_init(iter->right_fork,NULL) != 0)
 			return (0);
+		if (pthread_mutex_init(&iter->eat_check,NULL) != 0)
+			return (0);
 		iter = iter->right_philo;
 		i++;
 	}
@@ -101,6 +103,7 @@ int	ft_initialize(t_table *table, char **av)
 		return (0);
 	table->stop = 0;
 	table->time = current_time();
+	table->dieis = 0;
 	return (1);
 }
 int ft_start(t_table *table)

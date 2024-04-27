@@ -43,18 +43,27 @@ void *thread_routine(void *arg)
 		stop = philo->table->stop;
 		pthread_mutex_unlock(&philo->table->stop_flag);
 		if (stop == 1)
-			break ;
-		philo_eat(philo);
+			break;
+		if(!philo_eat(philo))
+			break;
 		philo_sleep(philo);
 		philo_think(philo);
 	}
 	return(NULL);
 }
 
-void	philo_eat(t_philo *philo)
+int		philo_eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->table->stop_flag);
+	if(philo->table->stop == 1)
+	{
+		pthread_mutex_unlock(&philo->table->stop_flag);
+		return(0);
+	}
+	pthread_mutex_unlock(&philo->table->stop_flag);
+	
 	if (philo->eat_count == philo->table->number_of_must_eat)
-		return ;
+		return (0);
 	pthread_mutex_lock(philo->right_fork);
 	print(philo, TAKEN_FORK);
 	pthread_mutex_lock(philo->left_fork);
@@ -64,19 +73,38 @@ void	philo_eat(t_philo *philo)
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->table->count_eat);
 	time_usleep(philo->table->time_to_eat);
-	pthread_mutex_lock(&philo->table->eat_last);
+
+	pthread_mutex_lock(&philo->eat_check);
 	philo->last_eat = current_time();
-	pthread_mutex_unlock(&philo->table->eat_last);
+	pthread_mutex_unlock(&philo->eat_check);
+	
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+	return(1);
 }
+
 void	philo_sleep(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->table->stop_flag);
+	if(philo->table->stop == 1)
+	{
+		pthread_mutex_unlock(&philo->table->stop_flag);
+		return;
+	}
+	pthread_mutex_unlock(&philo->table->stop_flag);
 	print(philo, IS_SLEEPING);
 	time_usleep(philo->table->time_to_sleap);
 }
 
 void	philo_think(t_philo *philo)
 {
+
+	pthread_mutex_lock(&philo->table->stop_flag);
+	if(philo->table->stop == 1)
+	{
+		pthread_mutex_unlock(&philo->table->stop_flag);
+		return;
+	}
+	pthread_mutex_unlock(&philo->table->stop_flag);
 	print(philo, IS_THINKING);
 }
