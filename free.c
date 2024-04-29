@@ -6,48 +6,46 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 07:19:21 by ysarac            #+#    #+#             */
-/*   Updated: 2024/03/29 07:29:20 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 16:50:24 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 
-void    table_free(t_table *table)
+void	table_free(t_table *table)
 {
 	philo_free(&table->first_philo);
 }
 
-void    philo_free(t_philo **root)
+void	philo_free(t_philo **root)
 {
-    if (*root == NULL)
-        return;
+	t_philo	*current;
+	t_philo	*next;
 
-    t_philo *current = *root;
-    t_philo *next = NULL;
-
-    while (current != NULL)
-    {
-        next = current->right_philo;
-
-        // Freeing right and left forks
-        free(current->right_fork);
-        free(current->left_fork);
-
-        free(current);
-
-        current = (next == *root) ? NULL : next;
-    }
-
-    *root = NULL;
+	if (*root == NULL)
+		return ;
+	current = *root;
+	next = NULL;
+	while (current != NULL)
+	{
+		next = current->right_philo;
+		free(current->right_fork);
+		free(current);
+		if (next == *root)
+			current = NULL;
+		else
+			current = next;
+	}
+	*root = NULL;
 }
 
-void    double_free(char **av)
+void	double_free(char **av)
 {
+	int	i;
+
 	if (av != NULL)
 	{
-		int i;
-
 		i = 0;
 		while (av[i])
 		{
@@ -58,15 +56,16 @@ void    double_free(char **av)
 	}
 }
 
-int     mutex_free(pthread_mutex_t *mutex)
+int	mutex_free(pthread_mutex_t *mutex)
 {
-    if (mutex != NULL )
-    {
-        if ((pthread_mutex_unlock(mutex) != 0) && (pthread_mutex_destroy(mutex) != 0))
-        {
-            return(free(mutex),0);
-        }
-        return(1);
-    }
-    return(0);
+	if (mutex != NULL)
+	{
+		if ((pthread_mutex_unlock(mutex) != 0)
+			&& (pthread_mutex_destroy(mutex) != 0))
+		{
+			return (free(mutex), 0);
+		}
+		return (1);
+	}
+	return (0);
 }

@@ -1,27 +1,26 @@
 NAME = philo
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -ggdb -fsanitize=thread 
+CC = cc -Wall -Wextra -Werror  -g -fsanitize=thread -g
+SOURCE = free.c \
+		ft_split.c \
+		initialize.c \
+		main.c \
+		thread_utils.c \
+		thread.c \
+		time.c \
+		utils.c
+OBJ = $(SOURCE:.c=.o)
 
-SRCS =	main.c\
-		utils.c\
-		ft_split.c\
-		initialize.c\
-		free.c\
-		time.c\
-		thread.c\
-		thread_utils.c
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+all : $(NAME)
 
-all: $(NAME)
-
-$(NAME):
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+.c.o:
+	$(CC) -c -o $@ $<
 
 clean:
-	rm -f $(NAME)
-
+	@rm -rf *.o
 fclean: clean
-	rm -f $(NAME)
-
+	@rm -rf $(NAME)
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: re fclean clean all

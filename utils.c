@@ -6,12 +6,12 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:29:32 by ysarac            #+#    #+#             */
-/*   Updated: 2024/03/29 07:19:08 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 13:58:27 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int	ft_atoi(const char *str)
 {
@@ -95,9 +95,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 int	ft_strlen(const char *s)
 {
 	int	i;
-	
-	if(!s)
-	  return (0);
+
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i] != '\0')
 		i++;
