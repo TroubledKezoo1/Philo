@@ -79,6 +79,7 @@ void				philo_sleep(t_philo *philo);
 void				philo_think(t_philo *philo);
 void				die_check(t_table *table);
 int					check_die(t_table *table);
+int					must_eating_check(t_table *table);
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif
