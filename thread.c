@@ -6,13 +6,12 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:55:28 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 23:45:00 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:56:37 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
-#include <unistd.h>
 
 int	start_thread(t_table *table)
 {

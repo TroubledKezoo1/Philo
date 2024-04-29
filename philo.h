@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:29:24 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 16:42:30 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:52:15 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <pthread.h>
 # include <stdlib.h>
-# include <sys/time.h>
 
 # define TAKEN_FORK "has taken a fork"
 # define IS_EATING "is eating"

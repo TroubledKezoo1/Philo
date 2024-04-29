@@ -6,14 +6,13 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:31:10 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 23:44:42 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:55:06 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 int	philo_add(t_philo **root, int id, t_table *table)
 {

@@ -4,6 +4,7 @@
         "philo.h": "c",
         "unistd.h": "c",
         "iterator": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "time.h": "c"
     }
 }

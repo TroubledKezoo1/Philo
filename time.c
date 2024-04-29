@@ -6,11 +6,12 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:56:15 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 13:56:18 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/30 00:06:23 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <sys/time.h>
 #include <unistd.h>
 
 uint64_t	current_time(void)

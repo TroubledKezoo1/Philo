@@ -6,11 +6,10 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 07:18:29 by ysarac            #+#    #+#             */
-/*   Updated: 2024/03/29 07:23:37 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:55:34 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
 #include <stdlib.h>
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
