@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:58:40 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 23:42:50 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:44:53 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_die(t_table *table)
 		pthread_mutex_lock(&iter->eat_check);
 		if ((current_time() - iter->last_eat) >= table->time_to_die
 			|| table->number_of_must_eat == 0)
-		{	
+		{
 			if (table->number_of_must_eat == 0)
 				time_usleep(table->time_to_die);
 			print(iter, DIE);

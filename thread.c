@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:55:28 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 19:15:21 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:45:00 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	start_thread(t_table *table)
 	iter = table->first_philo;
 	while (i <= table->number_of_philo)
 	{
-		if (pthread_create(&iter->thread_id,NULL, &thread_routine, iter) != 0)
+		if (pthread_create(&iter->thread_id, NULL, &thread_routine, iter) != 0)
 			return (0);
 		iter = iter->right_philo;
 		i++;
@@ -33,7 +33,7 @@ int	start_thread(t_table *table)
 	die_check(table);
 	while (i <= table->number_of_philo)
 	{
-		pthread_join(iter->thread_id,NULL);
+		pthread_join(iter->thread_id, NULL);
 		iter = iter->right_philo;
 		i++;
 	}

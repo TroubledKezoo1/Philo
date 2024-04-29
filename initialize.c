@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:31:10 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 19:41:01 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/29 23:44:42 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ int	ft_start(t_table *table)
 	}
 	else if (table->number_of_philo > 1)
 		if (!start_thread(table))
-			return (0);  
+			return (0);
 	return (1);
 }
