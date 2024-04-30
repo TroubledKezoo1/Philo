@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:55:28 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/30 12:22:31 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/30 16:32:11 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ void	*thread_routine(void *arg)
 
 int	philo_eat(t_philo *philo)
 {
-	if (philo->eat_count == philo->table->number_of_must_eat
-		&& philo->table->number_of_must_eat != 0)
+	if (philo->eat_count == philo->table->number_of_must_eat)
 		return (0);
 	pthread_mutex_lock(&philo->table->stop_flag);
 	if (philo->table->stop == 1)
@@ -84,10 +83,10 @@ int	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->count_eat);
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->count_eat);
-	time_usleep(philo->table->time_to_eat);
 	pthread_mutex_lock(&philo->eat_check);
 	philo->last_eat = current_time();
 	pthread_mutex_unlock(&philo->eat_check);
+	time_usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	return (1);

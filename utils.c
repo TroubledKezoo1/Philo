@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:29:32 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 23:58:58 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/30 16:31:07 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_check(char **av)
 	{
 		while (j--)
 		{
-			if (ft_atoi(av[j]) < 0 || ft_atoi(av[j]) > 2147483647)
+			if (ft_atoi(av[j]) <=0 || ft_atoi(av[j]) > 2147483647)
 				return (0);
 		}
 	}
