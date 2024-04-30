@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:31:10 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 23:55:06 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:21:39 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	philo_add(t_philo **root, int id, t_table *table)
 	if (!newphilo)
 		return (printf("Philo Init Error"), philo_free(root), 0);
 	newphilo->id = id;
-	newphilo->last_eat = current_time();
 	newphilo->table = table;
 	newphilo->right_philo = newphilo;
 	newphilo->left_philo = newphilo;

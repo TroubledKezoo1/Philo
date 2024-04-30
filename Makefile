@@ -1,5 +1,5 @@
 NAME = philo
-CC = cc -Wall -Wextra -Werror  -g -fsanitize=thread -g
+CC = cc -Wall -Wextra -Werror #-fsanitize=thread
 SOURCE = free.c \
 		ft_split.c \
 		initialize.c \

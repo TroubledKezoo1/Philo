@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:55:28 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/29 23:56:37 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:22:31 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	start_thread(t_table *table)
 
 	i = 1;
 	iter = table->first_philo;
+	table->time = current_time();
 	while (i <= table->number_of_philo)
 	{
+		iter->last_eat = current_time();
 		if (pthread_create(&iter->thread_id, NULL, &thread_routine, iter) != 0)
 			return (0);
 		iter = iter->right_philo;
