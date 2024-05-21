@@ -6,7 +6,7 @@
 /*   By: ysarac <ysarac@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:31:10 by ysarac            #+#    #+#             */
-/*   Updated: 2024/04/30 12:21:39 by ysarac           ###   ########.fr       */
+/*   Updated: 2024/05/21 17:54:03 by ysarac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	philo_add(t_philo **root, int id, t_table *table)
 	newphilo->left_philo = newphilo;
 	newphilo->right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (newphilo->right_fork == NULL)
-		return (printf("Philo Right Fork Init Error"), philo_free(root), 0);
+		return (printf("Philo Right Fork Init Error"), free(newphilo),philo_free(root), 0);
 	if (*root == NULL)
 		*root = newphilo;
 	else
